@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="MathFuncsUI.ScientificCalculatorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MathFuncsUI"
+             mc:Ignorable="d" 
+						 Width="270">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"></ColumnDefinition>
+			<ColumnDefinition Width="Auto"></ColumnDefinition>
+			<ColumnDefinition Width="Auto"></ColumnDefinition>
+			<ColumnDefinition Width="Auto"></ColumnDefinition>
+			<ColumnDefinition Width="Auto"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
+			<TextBox x:Name="TextBoxCalculatorField" FontSize="20" Margin="2" Text="{Binding Path=CalculatorField}" Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap"></TextBox>
+		</Border>
+		<Button x:Name="ButtonAC" Grid.Column="0" Grid.Row="1" Command="{Binding ClearCalculatorFieldCommand}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="AC"></Button>
+		<Button x:Name="ButtonX" Grid.Column="1" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueX}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="x"></Button>
+		<Button x:Name="ButtonY" Grid.Column="2" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueY}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="y"></Button>
+		<Button x:Name="ButtonOne" Grid.Column="0" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value1}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="1"></Button>
+		<Button x:Name="ButtonTwo" Grid.Column="1" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value2}" FontSize="18"  HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="2"></Button>
+		<Button x:Name="ButtonThree" Grid.Column="2" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value3}"  FontSize="18"  HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="3"></Button>
+		<Button x:Name="ButtonFour" Grid.Column="0" Grid.Row="3" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value4}"  FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="4"></Button>
+		<Button x:Name="ButtonFive" Grid.Column="1" Grid.Row="3" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value5}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="5"></Button>
+		<Button x:Name="ButtonSix" Grid.Column="2" Grid.Row="3" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value6}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="6"></Button>
+		<Button x:Name="ButtonSeven" Grid.Column="0" Grid.Row="4" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value7}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="7"></Button>
+		<Button x:Name="ButtonEight" Grid.Column="1" Grid.Row="4" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value8}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="8"></Button>
+		<Button x:Name="ButtonNine" Grid.Column="2" Grid.Row="4" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value9}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="9"></Button>
+		<Button x:Name="ButtonZero" Grid.Column="1" Grid.Row="5" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value0}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="0"></Button>
+		<Button x:Name="ButtonMultiply" Grid.Column="3" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueMultiply}" FontSize="18" HorizontalAlignment="Right" Margin="2" Height="50" Width="50" Content="*"></Button>
+		<Button x:Name="ButtonDivide" Grid.Column="4" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueDivide}" FontSize="18" HorizontalAlignment="Right" Margin="2" Height="50" Width="50" Content="/"></Button>
+		<Button x:Name="ButtonAdd" Grid.Column="3" Grid.Row="3" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueAdd}" FontSize="18" HorizontalAlignment="Right" Margin="2" Height="50" Width="50" Content="+"></Button>
+		<Button x:Name="ButtonSubtract" Grid.Column="4" Grid.Row="3" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueSubtract}" FontSize="18" HorizontalAlignment="Right" Margin="2" Height="50" Width="50" Content="-"></Button>
+		<Button x:Name="ButtonPower" Grid.Column="3" Grid.Row="4" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValuePower}" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2" Height="50" Width="50" Content="x^"></Button>
+		<Button x:Name="ButtonSubmit" Grid.Column="4" Grid.Row="4" Command="{Binding SubmitCalculatorFieldCommand}" Grid.RowSpan="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="2" Height="103" Width="50" Content="="></Button>
+		<Button x:Name="ButtonEqual" Grid.Column="4" Grid.Row="5" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueEqual}" Grid.RowSpan="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="2,2,2,10" Height="30" Width="30" Content="="></Button>
+
+	</Grid>
+</UserControl>
