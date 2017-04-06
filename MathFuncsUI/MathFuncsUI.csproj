@@ -107,6 +107,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="libs.png" />
     <Content Include="MathFuncDll.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
