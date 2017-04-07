@@ -16,11 +16,13 @@ namespace MathFuncsUI
 		public ViewModel()
 		{
 			_calculator = _calculatorFactory.CreateCalculator();
-			CalculatorField = "abc";
+			_scientificCalculator = ((IScientificCalculator)_calculator);
 		}
 
 		private char[] _delimiterChars = { '(', ')', '+', '-', '*', '/', '=' };
+		private string _calculatorField;
 		private ICalculator _calculator = null;
+		private IScientificCalculator _scientificCalculator = null;
 		private CalculatorFactory _calculatorFactory = new CalculatorFactory();
 		
 		public static readonly string Value0 = "0";
@@ -41,6 +43,8 @@ namespace MathFuncsUI
 		public static readonly string ValueDivide = "/";
 		public static readonly string ValuePower = "^";
 		public static readonly string ValueEqual = "=";
+		public static readonly string ValueOpenParenthesis = "(";
+		public static readonly string ValueClosedParenthesis = ")";
 
 		public string CalculatorField
 		{
@@ -51,8 +55,7 @@ namespace MathFuncsUI
 				OnPropertyChanged("CalculatorField");
 			}
 		}
-		private string _calculatorField;
-
+	
 		private void ClearCalculatorField()
 		{
 			CalculatorField = string.Empty;
@@ -62,21 +65,21 @@ namespace MathFuncsUI
 		{
 			string result = string.Empty;
 
-			_calculator.Add(1.74, 2.27);
+			_calculator.Add(1.252, 2.111);
 			var add = _calculator.GetAnswer();
 			result += "Add(): " + add.ToString() + Environment.NewLine;
 
-			var addOne = ((IScientificCalculator)_calculator).AddOne(147);
+			var addOne = ((IScientificCalculator)_calculator).AddOne(1);
 			result += "AddOne(): " + addOne.ToString() + Environment.NewLine;
 
-			string tester = "hello";
+			string tester = "Testing BSTR";
 			_calculator.GetString(ref tester);
-			result += "GetString(): " + tester + Environment.NewLine;
+			result += tester + Environment.NewLine;
 
-			string raiseToPower = _calculator.RaiseToPower (2.0, 10.0).ToString();
+			string raiseToPower = _scientificCalculator.RaiseToPower (2.0, 10.0).ToString();
 			result += "RaiseToPower(): " + (_calculator.GetAnswer().ToString()) + Environment.NewLine;
 
-			MessageBox.Show(result); 
+			CalculatorField = result;
 		}
 
 		private void UpdateCalculatorField(string value)
@@ -85,44 +88,6 @@ namespace MathFuncsUI
 		}
 
 		#region Interop Functions
-
-		public string ReturnValue
-		{
-			get { return returnValue; }
-			set
-			{
-				returnValue = value;
-				OnPropertyChanged("ReturnValue");
-			}
-		}
-		private string returnValue;
-
-		private void Run()
-		{
-			ReturnValue = RunInteropFunctions();
-			Console.WriteLine(ReturnValue);
-
-			var factory = new CalculatorFactory();
-			var pCalculator = factory.CreateCalculator();
-
-			double inputValue = 4;
-			double outputValue = pCalculator.RaiseToPower(inputValue, 2);
-			Console.WriteLine("pScientificCalculator.SquareRoot(1024): " + outputValue.ToString());
-
-			double currentAnswer = pCalculator.GetAnswer();
-
-			var pScientificCalculator = pCalculator as IScientificCalculator;
-			Console.WriteLine("pCalculator.Add(2,3): " + pCalculator.Add(2, 3).ToString());
-
-			currentAnswer = pCalculator.GetAnswer();
-
-			IScientificCalculator sc = pCalculator as IScientificCalculator;
-			currentAnswer = sc.RaiseToPower(16, 2);
-			currentAnswer = pCalculator.GetAnswer();
-			currentAnswer = sc.AddOne(20);
-
-			factory = null;
-		}
 
 		public string RunInteropFunctions()
 		{
@@ -147,6 +112,7 @@ namespace MathFuncsUI
 
 			return output;
 		}
+		
 		#endregion
 		
 		#region ICommands
@@ -201,22 +167,6 @@ namespace MathFuncsUI
 			}
 		}
 		private bool CanUpdateCalculatorFieldCommand()
-		{
-			return true;
-		}
-
-		private RelayCommand _doSomethingCommand;
-		public ICommand DoSomethingCommand
-		{
-			get
-			{
-				if (_doSomethingCommand == null)
-					_doSomethingCommand = new RelayCommand(
-									() => Run(), () => CanDoSomething());
-				return _doSomethingCommand;
-			}
-		}
-		private bool CanDoSomething()
 		{
 			return true;
 		}

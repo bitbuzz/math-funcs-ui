@@ -10,8 +10,8 @@ namespace MathFuncsUI
 		public MainWindow()
     {
       InitializeComponent();
-      DataContext = new ViewModel();
-			((ViewModel)DataContext).EvaluateExpression("Hello World");
+			DataContext = new ViewModel();
+			//((ViewModel)DataContext).EvaluateExpression("Hello World");
 		}
 	}
 }

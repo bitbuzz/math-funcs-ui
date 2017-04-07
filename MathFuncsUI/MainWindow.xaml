@@ -5,7 +5,8 @@
         MinHeight="250"
         MinWidth="250"
 				xmlns:local="clr-namespace:MathFuncsUI"
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+				ResizeMode="NoResize">
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition/>
@@ -19,15 +20,12 @@
         <Grid.ColumnDefinitions>
           <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="*"/>
-          <RowDefinition Height="Auto"/>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Margin="4" HorizontalAlignment="Left">Interop function calls</TextBlock>
-        <TextBlock Grid.Row="1" x:Name="myTextBlock" Margin="4" HorizontalAlignment="Left" Text="{Binding Path=ReturnValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <Button Grid.Row="2" x:Name="myButton" Margin="4" Height="25" Width="75" HorizontalAlignment="Right" Command="{Binding DoSomethingCommand}">Calculate</Button>
 				<local:ScientificCalculatorControl Grid.Column="0" Grid.Row="3" Margin="4" x:Name="UserControlScientificCalc"></local:ScientificCalculatorControl>
       </Grid>
     </Border>

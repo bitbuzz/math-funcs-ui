@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MathFuncsUI"
-             mc:Ignorable="d" 
-						 Width="270">
+             mc:Ignorable="d">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"></RowDefinition>
@@ -24,11 +23,13 @@
 			<ColumnDefinition Width="Auto"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
-			<TextBox x:Name="TextBoxCalculatorField" FontSize="20" Margin="2" Text="{Binding Path=CalculatorField}" Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap"></TextBox>
+			<TextBox x:Name="TextBoxCalculatorField" FontSize="20" Height="200" Width="264" Margin="2" TextWrapping="Wrap" Text="{Binding Path=CalculatorField}" ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
 		</Border>
 		<Button x:Name="ButtonAC" Grid.Column="0" Grid.Row="1" Command="{Binding ClearCalculatorFieldCommand}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="AC"></Button>
 		<Button x:Name="ButtonX" Grid.Column="1" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueX}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="x"></Button>
 		<Button x:Name="ButtonY" Grid.Column="2" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueY}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="y"></Button>
+		<Button x:Name="OpenParenthesisBtn" Grid.Column="3" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueOpenParenthesis}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="("></Button>
+		<Button x:Name="ClosedParenthesisBtn" Grid.Column="4" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueClosedParenthesis}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content=")"></Button>
 		<Button x:Name="ButtonOne" Grid.Column="0" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value1}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="1"></Button>
 		<Button x:Name="ButtonTwo" Grid.Column="1" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value2}" FontSize="18"  HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="2"></Button>
 		<Button x:Name="ButtonThree" Grid.Column="2" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value3}"  FontSize="18"  HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="3"></Button>
