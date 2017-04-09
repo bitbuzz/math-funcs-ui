@@ -5,6 +5,7 @@ using MathFuncInterop;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MathFuncsUI
 {
@@ -41,6 +42,8 @@ namespace MathFuncsUI
 		{
 			_calculator = _calculatorFactory.CreateCalculator();
 			_scientificCalculator = ((IScientificCalculator)_calculator);
+
+			CalculatorField = "12+23";
 		}
 
 		public string CalculatorField
@@ -52,7 +55,7 @@ namespace MathFuncsUI
 				OnPropertyChanged("CalculatorField");
 			}
 		}
-	
+
 		private void ClearCalculatorField()
 		{
 			CalculatorField = string.Empty;
@@ -60,53 +63,63 @@ namespace MathFuncsUI
 
 		public void EvaluateExpression(string expression)
 		{
-			if(expression == "opendirs")
+			if (expression == "opendirs")
 			{
 				OpenDevelopmentDirectories();
 			}
+
+			string newExpression = string.Empty;
+			newExpression = TakeLastLines(expression, 1).FirstOrDefault();
 
 			string result = string.Empty;
 			string term = string.Empty;
 			List<string> numbers1 = null;
 			List<string> numbers2 = null;
 
-			//foreach (char c in expression)
-
-			for (int i = 0; i < expression.Length; i++)
+			for (int i = 0; i < newExpression.Length; i++)
 			{
-				if(char.IsNumber(expression[i]) && numbers1 == null)
+				if (char.IsNumber(newExpression[i]) && term == string.Empty)
 				{
-					numbers1 = new List<string>();
-					if(i == expression.Length -1)
+					if (numbers1 == null)
 					{
-						System.Diagnostics.Debug.WriteLine("Last one...");
+						numbers1 = new List<string>();
 					}
-					numbers1.Add(expression[i].ToString() + ",");		
+					numbers1.Add(newExpression[i].ToString());
 				}
-				else if (char.IsNumber(expression[i]) && numbers2 == null)
+				else if (char.IsNumber(newExpression[i]))
 				{
-					numbers2 = new List<string>();
-					numbers2.Add(expression[i].ToString() + ", ");
+					if (numbers2 == null)
+					{
+						numbers2 = new List<string>();
+					}
+					numbers2.Add(newExpression[i].ToString());
 				}
 				else
 				{
-					switch(expression[i].ToString())
+					switch (newExpression[i].ToString())
 					{
 						case "+":
-						{
+							{
 								term = "+";
 								break;
-						}
+							}
 					}
 				}
-				if(numbers1 != null && numbers2 != null)
+				if (numbers1 != null && numbers2 != null)
 				{
-					var x = Convert.ToDouble(numbers1.Aggregate((j, k) => j + "+" + k));
-					var y = Convert.ToDouble(numbers2.Aggregate((j, k) => j + "+" + k));
+					var x = Convert.ToDouble(numbers1.Aggregate((j, k) => j + k));
+					var y = Convert.ToDouble(numbers2.Aggregate((j, k) => j + k));
 
-					_calculator.Add(x, y);
-					var add = _calculator.GetAnswer();
-					result = add.ToString();
+					switch (term)
+					{
+						case "+":
+							{
+								_calculator.Add(x, y);
+								var add = _calculator.GetAnswer();
+								result = expression + "=" + add.ToString() + Environment.NewLine;
+								break;
+							}
+					}
 				}
 			}
 
@@ -125,6 +138,19 @@ namespace MathFuncsUI
 			//result += "RaiseToPower(): " + (_calculator.GetAnswer().ToString()) + Environment.NewLine;
 
 			CalculatorField = result;
+		}
+
+		private static List<string> TakeLastLines(string str, int count)
+		{
+			List<string> lines = new List<string>();
+			Match match = Regex.Match(str, "^.*$", RegexOptions.Multiline | RegexOptions.RightToLeft);
+
+			while (match.Success && lines.Count < count)
+			{
+				lines.Insert(0, match.Value);
+				match = match.NextMatch();
+			}
+			return lines;
 		}
 
 		private void OpenDevelopmentDirectories()
@@ -165,9 +191,9 @@ namespace MathFuncsUI
 
 			return output;
 		}
-		
+
 		#endregion
-		
+
 		#region ICommands
 
 		private RelayCommand _clearCalculatorFieldCommand;
