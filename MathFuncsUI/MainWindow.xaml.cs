@@ -11,7 +11,6 @@ namespace MathFuncsUI
     {
       InitializeComponent();
 			DataContext = new ViewModel();
-			//((ViewModel)DataContext).EvaluateExpression("Hello World");
 		}
 	}
 }

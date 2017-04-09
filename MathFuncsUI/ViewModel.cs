@@ -1,30 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows;
 using System.Windows.Input;
 using MathFuncInterop;
-using System.Data;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MathFuncsUI
 {
-	public class ViewModel : INotifyPropertyChanged
+	internal class ViewModel : INotifyPropertyChanged
 	{
-		public ViewModel()
-		{
-			_calculator = _calculatorFactory.CreateCalculator();
-			_scientificCalculator = ((IScientificCalculator)_calculator);
-		}
-
 		private char[] _delimiterChars = { '(', ')', '+', '-', '*', '/', '=' };
 		private string _calculatorField;
 		private ICalculator _calculator = null;
 		private IScientificCalculator _scientificCalculator = null;
 		private CalculatorFactory _calculatorFactory = new CalculatorFactory();
-		
+
 		public static readonly string Value0 = "0";
 		public static readonly string Value1 = "1";
 		public static readonly string Value2 = "2";
@@ -46,6 +37,12 @@ namespace MathFuncsUI
 		public static readonly string ValueOpenParenthesis = "(";
 		public static readonly string ValueClosedParenthesis = ")";
 
+		public ViewModel()
+		{
+			_calculator = _calculatorFactory.CreateCalculator();
+			_scientificCalculator = ((IScientificCalculator)_calculator);
+		}
+
 		public string CalculatorField
 		{
 			get { return _calculatorField; }
@@ -63,23 +60,79 @@ namespace MathFuncsUI
 
 		public void EvaluateExpression(string expression)
 		{
+			if(expression == "opendirs")
+			{
+				OpenDevelopmentDirectories();
+			}
+
 			string result = string.Empty;
+			string term = string.Empty;
+			List<string> numbers1 = null;
+			List<string> numbers2 = null;
 
-			_calculator.Add(1.252, 2.111);
-			var add = _calculator.GetAnswer();
-			result += "Add(): " + add.ToString() + Environment.NewLine;
+			//foreach (char c in expression)
 
-			var addOne = ((IScientificCalculator)_calculator).AddOne(1);
-			result += "AddOne(): " + addOne.ToString() + Environment.NewLine;
+			for (int i = 0; i < expression.Length; i++)
+			{
+				if(char.IsNumber(expression[i]) && numbers1 == null)
+				{
+					numbers1 = new List<string>();
+					if(i == expression.Length -1)
+					{
+						System.Diagnostics.Debug.WriteLine("Last one...");
+					}
+					numbers1.Add(expression[i].ToString() + ",");		
+				}
+				else if (char.IsNumber(expression[i]) && numbers2 == null)
+				{
+					numbers2 = new List<string>();
+					numbers2.Add(expression[i].ToString() + ", ");
+				}
+				else
+				{
+					switch(expression[i].ToString())
+					{
+						case "+":
+						{
+								term = "+";
+								break;
+						}
+					}
+				}
+				if(numbers1 != null && numbers2 != null)
+				{
+					var x = Convert.ToDouble(numbers1.Aggregate((j, k) => j + "+" + k));
+					var y = Convert.ToDouble(numbers2.Aggregate((j, k) => j + "+" + k));
 
-			string tester = "Testing BSTR";
-			_calculator.GetString(ref tester);
-			result += tester + Environment.NewLine;
+					_calculator.Add(x, y);
+					var add = _calculator.GetAnswer();
+					result = add.ToString();
+				}
+			}
 
-			string raiseToPower = _scientificCalculator.RaiseToPower (2.0, 10.0).ToString();
-			result += "RaiseToPower(): " + (_calculator.GetAnswer().ToString()) + Environment.NewLine;
+			//_calculator.Add(1.252, 2.111);
+			//var add = _calculator.GetAnswer();
+			//result += "Add(): " + add.ToString() + Environment.NewLine;
+
+			//var addOne = ((IScientificCalculator)_calculator).AddOne(1);
+			//result += "AddOne(): " + addOne.ToString() + Environment.NewLine;
+
+			//string tester = "Testing BSTR";
+			//_calculator.GetString(ref tester);
+			//result += tester + Environment.NewLine;
+
+			//string raiseToPower = _scientificCalculator.RaiseToPower (2.0, 10.0).ToString();
+			//result += "RaiseToPower(): " + (_calculator.GetAnswer().ToString()) + Environment.NewLine;
 
 			CalculatorField = result;
+		}
+
+		private void OpenDevelopmentDirectories()
+		{
+			Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\Debug");
+			Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\MathFuncInterop");
+			Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\MathFuncInterop\bin\Debug");
+			Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncsUI\MathFuncsUI");
 		}
 
 		private void UpdateCalculatorField(string value)
