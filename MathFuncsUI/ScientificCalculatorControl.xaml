@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+						 xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:MathFuncsUI"
              mc:Ignorable="d">
 	<Grid>
@@ -23,7 +24,11 @@
 			<ColumnDefinition Width="Auto"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
-			<TextBox x:Name="TextBoxCalculatorField" FontSize="20" Height="200" Width="264" Margin="2" TextWrapping="Wrap" Text="{Binding Path=CalculatorField}" ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
+			<TextBox x:Name="TextBoxCalculatorField" FontSize="20" Height="200" Width="264" Margin="2" TextWrapping="Wrap" Text="{Binding Path=CalculatorField}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+				<TextBox.InputBindings>
+					<KeyBinding Command="{Binding SubmitCalculatorFieldCommand}" Key="Return" />
+				</TextBox.InputBindings>
+			</TextBox>
 		</Border>
 		<Button x:Name="ButtonAC" Grid.Column="0" Grid.Row="1" Command="{Binding ClearCalculatorFieldCommand}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="AC"></Button>
 		<Button x:Name="ButtonX" Grid.Column="1" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueX}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="x"></Button>

@@ -63,10 +63,11 @@ namespace MathFuncsUI
 
 		public void EvaluateExpression(string expression)
 		{
+			if (string.IsNullOrEmpty(expression) || string.IsNullOrWhiteSpace(expression))
+				return;
+
 			if (expression == "opendirs")
-			{
 				OpenDevelopmentDirectories();
-			}
 
 			string newExpression = string.Empty;
 			newExpression = TakeLastLines(expression, 1).FirstOrDefault();
@@ -225,14 +226,7 @@ namespace MathFuncsUI
 		}
 		private bool CanSubmitCalculatorFieldCommand()
 		{
-			if (string.IsNullOrEmpty(CalculatorField) || string.IsNullOrWhiteSpace(CalculatorField))
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			return true;
 		}
 
 		private RelayCommandParameters _updateCalculatorFieldCommand;
