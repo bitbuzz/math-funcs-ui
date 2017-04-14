@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Data;
 
 namespace MathFuncsUI
 {
@@ -61,6 +62,8 @@ namespace MathFuncsUI
 			CalculatorField = string.Empty;
 		}
 
+		private double _previousAnswer = 0;
+
 		public void EvaluateExpression(string expression)
 		{
 			if (string.IsNullOrEmpty(expression) || string.IsNullOrWhiteSpace(expression))
@@ -72,57 +75,15 @@ namespace MathFuncsUI
 			string newExpression = string.Empty;
 			newExpression = TakeLastLines(expression, 1).FirstOrDefault();
 
-			string result = string.Empty;
-			string term = string.Empty;
-			List<string> numbers1 = null;
-			List<string> numbers2 = null;
+			// OR try NCALC?
+			DataTable dataTable = new DataTable();
+			_previousAnswer = Convert.ToDouble(dataTable.Compute(newExpression, string.Empty).ToString());
 
-			for (int i = 0; i < newExpression.Length; i++)
-			{
-				if (char.IsNumber(newExpression[i]) && term == string.Empty)
-				{
-					if (numbers1 == null)
-					{
-						numbers1 = new List<string>();
-					}
-					numbers1.Add(newExpression[i].ToString());
-				}
-				else if (char.IsNumber(newExpression[i]))
-				{
-					if (numbers2 == null)
-					{
-						numbers2 = new List<string>();
-					}
-					numbers2.Add(newExpression[i].ToString());
-				}
-				else
-				{
-					switch (newExpression[i].ToString())
-					{
-						case "+":
-							{
-								term = "+";
-								break;
-							}
-					}
-				}
-				if (numbers1 != null && numbers2 != null)
-				{
-					var x = Convert.ToDouble(numbers1.Aggregate((j, k) => j + k));
-					var y = Convert.ToDouble(numbers2.Aggregate((j, k) => j + k));
-
-					switch (term)
-					{
-						case "+":
-							{
-								_calculator.Add(x, y);
-								var add = _calculator.GetAnswer();
-								result = expression + "=" + add.ToString() + Environment.NewLine;
-								break;
-							}
-					}
-				}
-			}
+			var result = 
+				expression + 
+				Environment.NewLine + 
+				_previousAnswer + 
+				Environment.NewLine;
 
 			//_calculator.Add(1.252, 2.111);
 			//var add = _calculator.GetAnswer();
