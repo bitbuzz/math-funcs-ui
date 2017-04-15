@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 						 xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:MathFuncsUI"
+						 xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d">
 	<Grid>
 		<Grid.RowDefinitions>
@@ -24,11 +25,11 @@
 			<ColumnDefinition Width="Auto"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
-			<TextBox x:Name="TextBoxCalculatorField" FontSize="20" Height="200" Width="264" Margin="2" TextWrapping="Wrap" Text="{Binding Path=CalculatorField}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+			<local:CustomTextBox x:Name="TextBoxCalculatorField" FontSize="20" Height="200" Width="264" Margin="2" TextWrapping="Wrap" BindableSelectionStart="{Binding Path=CalculatorFieldSelectionStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=CalculatorField}" ScrollViewer.VerticalScrollBarVisibility="Auto">
 				<TextBox.InputBindings>
 					<KeyBinding Command="{Binding SubmitCalculatorFieldCommand}" Key="Return" />
 				</TextBox.InputBindings>
-			</TextBox>
+			</local:CustomTextBox>
 		</Border>
 		<Button x:Name="ButtonAC" Grid.Column="0" Grid.Row="1" Command="{Binding ClearCalculatorFieldCommand}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="AC"></Button>
 		<Button x:Name="ButtonX" Grid.Column="1" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueX}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="x"></Button>
@@ -45,6 +46,7 @@
 		<Button x:Name="ButtonEight" Grid.Column="1" Grid.Row="4" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value8}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="8"></Button>
 		<Button x:Name="ButtonNine" Grid.Column="2" Grid.Row="4" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value9}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="9"></Button>
 		<Button x:Name="ButtonZero" Grid.Column="1" Grid.Row="5" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value0}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="0"></Button>
+		<Button x:Name="ButtonDecimal" Grid.Column="3" Grid.Row="5" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueDecimal}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="."></Button>
 		<Button x:Name="ButtonMultiply" Grid.Column="3" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueMultiply}" FontSize="18" HorizontalAlignment="Right" Margin="2" Height="50" Width="50" Content="*"></Button>
 		<Button x:Name="ButtonDivide" Grid.Column="4" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueDivide}" FontSize="18" HorizontalAlignment="Right" Margin="2" Height="50" Width="50" Content="/"></Button>
 		<Button x:Name="ButtonAdd" Grid.Column="3" Grid.Row="3" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueAdd}" FontSize="18" HorizontalAlignment="Right" Margin="2" Height="50" Width="50" Content="+"></Button>

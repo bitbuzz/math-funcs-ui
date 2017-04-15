@@ -7,17 +7,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Data;
+using System.Windows;
 
 namespace MathFuncsUI
 {
 	internal class ViewModel : INotifyPropertyChanged
 	{
-		private char[] _delimiterChars = { '(', ')', '+', '-', '*', '/', '=' };
+		private bool _isJustCalculatedExpression = false;
 		private string _calculatorField;
+		private double _previousAnswer = 0;
+		private int _calculatorFieldSelectionStart = 0;
 		private ICalculator _calculator = null;
 		private IScientificCalculator _scientificCalculator = null;
 		private CalculatorFactory _calculatorFactory = new CalculatorFactory();
 
+		private char[] _delimiterChars = { '(', ')', '+', '-', '*', '/', '=' };
+		public static readonly string ValueDecimal = ".";
 		public static readonly string Value0 = "0";
 		public static readonly string Value1 = "1";
 		public static readonly string Value2 = "2";
@@ -57,19 +62,27 @@ namespace MathFuncsUI
 			}
 		}
 
+		public int CalculatorFieldSelectionStart
+		{
+			get { return _calculatorFieldSelectionStart; }
+			set
+			{
+				_calculatorFieldSelectionStart = value;
+				OnPropertyChanged("CalculatorFieldSelectionStart");
+			}
+		}
+
 		private void ClearCalculatorField()
 		{
 			CalculatorField = string.Empty;
 		}
-
-		private double _previousAnswer = 0;
 
 		public void EvaluateExpression(string expression)
 		{
 			if (string.IsNullOrEmpty(expression) || string.IsNullOrWhiteSpace(expression))
 				return;
 
-			if (expression == "opendirs")
+			if (expression == "dirs")
 				OpenDevelopmentDirectories();
 
 			string newExpression = string.Empty;
@@ -79,10 +92,10 @@ namespace MathFuncsUI
 			DataTable dataTable = new DataTable();
 			_previousAnswer = Convert.ToDouble(dataTable.Compute(newExpression, string.Empty).ToString());
 
-			var result = 
-				expression + 
-				Environment.NewLine + 
-				_previousAnswer + 
+			var result =
+				expression +
+				Environment.NewLine +
+				_previousAnswer +
 				Environment.NewLine;
 
 			//_calculator.Add(1.252, 2.111);
@@ -100,6 +113,7 @@ namespace MathFuncsUI
 			//result += "RaiseToPower(): " + (_calculator.GetAnswer().ToString()) + Environment.NewLine;
 
 			CalculatorField = result;
+			_isJustCalculatedExpression = true;
 		}
 
 		private static List<string> TakeLastLines(string str, int count)
@@ -125,7 +139,19 @@ namespace MathFuncsUI
 
 		private void UpdateCalculatorField(string value)
 		{
-			CalculatorField += value;
+			if(_isJustCalculatedExpression)
+			{
+				int number;
+				if(int.TryParse(value, out number) == false)
+				{
+					value = _previousAnswer + value;
+				}
+				_isJustCalculatedExpression = false;
+			}
+
+			CalculatorField = CalculatorField.Insert(CalculatorFieldSelectionStart, value);			
+			
+			//CalculatorField += value;
 		}
 
 		#region Interop Functions
@@ -181,7 +207,8 @@ namespace MathFuncsUI
 			{
 				if (_submitCalculatorFieldCommand == null)
 					_submitCalculatorFieldCommand = new RelayCommand(
-						() => EvaluateExpression(CalculatorField), () => CanSubmitCalculatorFieldCommand());
+						() => { try { EvaluateExpression(CalculatorField); } catch (Exception ex) { MessageBox.Show(ex.Message, "Calculator", MessageBoxButton.OK, MessageBoxImage.Warning); } },
+						() => CanSubmitCalculatorFieldCommand());
 				return _submitCalculatorFieldCommand;
 			}
 		}
