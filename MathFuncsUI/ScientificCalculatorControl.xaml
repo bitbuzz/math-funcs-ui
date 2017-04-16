@@ -25,7 +25,7 @@
 			<ColumnDefinition Width="Auto"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
-			<local:CustomTextBox x:Name="TextBoxCalculatorField" FontSize="20" Height="200" Width="264" Margin="2" TextWrapping="Wrap" BindableSelectionStart="{Binding Path=CalculatorFieldSelectionStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=CalculatorField}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+			<local:CustomTextBox x:Name="TextBoxCalculatorField" TextChanged="TextBoxCalculatorField_TextChanged" FontSize="20" Height="200" Width="264" Margin="2" TextWrapping="Wrap" BindableSelectionStart="{Binding Path=CalculatorFieldSelectionStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=CalculatorField}" ScrollViewer.VerticalScrollBarVisibility="Auto">
 				<TextBox.InputBindings>
 					<KeyBinding Command="{Binding SubmitCalculatorFieldCommand}" Key="Return" />
 				</TextBox.InputBindings>

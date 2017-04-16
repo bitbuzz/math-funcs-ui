@@ -14,6 +14,7 @@ namespace MathFuncsUI
 	internal class ViewModel : INotifyPropertyChanged
 	{
 		private bool _isJustCalculatedExpression = false;
+		private bool _isScrollCalculatorFieldEnabled = true;
 		private string _calculatorField;
 		private double _previousAnswer = 0;
 		private int _calculatorFieldSelectionStart = 0;
@@ -72,31 +73,48 @@ namespace MathFuncsUI
 			}
 		}
 
+		public bool IsScrollCalculatorFieldEnabled
+		{
+			get { return _isScrollCalculatorFieldEnabled; }
+		}
+
 		private void ClearCalculatorField()
 		{
 			CalculatorField = string.Empty;
 		}
 
-		public void EvaluateExpression(string expression)
+		private void EvaluateExpression(string expression)
 		{
 			if (string.IsNullOrEmpty(expression) || string.IsNullOrWhiteSpace(expression))
 				return;
 
 			if (expression == "dirs")
+			{
 				OpenDevelopmentDirectories();
+				return;
+			}
 
-			string newExpression = string.Empty;
-			newExpression = TakeLastLines(expression, 1).FirstOrDefault();
+			string currentExpression = string.Empty;
+			const char CR = '\r'; // or (char)13
 
-			// OR try NCALC?
+			if (expression.Contains(CR))
+			{
+				currentExpression = GetLastLines(expression, 1).FirstOrDefault();
+			}				
+			else
+			{
+				currentExpression = expression;
+			}
+			
 			DataTable dataTable = new DataTable();
-			_previousAnswer = Convert.ToDouble(dataTable.Compute(newExpression, string.Empty).ToString());
+			var answer = Convert.ToDouble(dataTable.Compute(currentExpression, string.Empty).ToString());
+			_previousAnswer = answer;
 
-			var result =
-				expression +
-				Environment.NewLine +
-				_previousAnswer +
-				Environment.NewLine;
+			_isScrollCalculatorFieldEnabled = true;
+			CalculatorField = expression + Environment.NewLine + answer + Environment.NewLine;
+			_isScrollCalculatorFieldEnabled = false;
+
+			_isJustCalculatedExpression = true;
 
 			//_calculator.Add(1.252, 2.111);
 			//var add = _calculator.GetAnswer();
@@ -111,12 +129,9 @@ namespace MathFuncsUI
 
 			//string raiseToPower = _scientificCalculator.RaiseToPower (2.0, 10.0).ToString();
 			//result += "RaiseToPower(): " + (_calculator.GetAnswer().ToString()) + Environment.NewLine;
-
-			CalculatorField = result;
-			_isJustCalculatedExpression = true;
 		}
 
-		private static List<string> TakeLastLines(string str, int count)
+		private static List<string> GetLastLines(string str, int count)
 		{
 			List<string> lines = new List<string>();
 			Match match = Regex.Match(str, "^.*$", RegexOptions.Multiline | RegexOptions.RightToLeft);
@@ -148,10 +163,7 @@ namespace MathFuncsUI
 				}
 				_isJustCalculatedExpression = false;
 			}
-
-			CalculatorField = CalculatorField.Insert(CalculatorFieldSelectionStart, value);			
-			
-			//CalculatorField += value;
+			CalculatorField += value;
 		}
 
 		#region Interop Functions
