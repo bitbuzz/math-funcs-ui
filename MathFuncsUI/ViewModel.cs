@@ -157,7 +157,7 @@ namespace MathFuncsUI
 			if(_isJustCalculatedExpression)
 			{
 				int number;
-				if(int.TryParse(value, out number) == false)
+				if (int.TryParse(value, out number) == false)
 				{
 					value = _previousAnswer + value;
 				}
@@ -219,7 +219,7 @@ namespace MathFuncsUI
 			{
 				if (_submitCalculatorFieldCommand == null)
 					_submitCalculatorFieldCommand = new RelayCommand(
-						() => { try { EvaluateExpression(CalculatorField); } catch (Exception ex) { MessageBox.Show(ex.Message, "Calculator", MessageBoxButton.OK, MessageBoxImage.Warning); } },
+						() => { try { EvaluateExpression(CalculatorField); } catch (Exception ex) { MessageBox.Show(ex.Message + ex.StackTrace, "Calculator", MessageBoxButton.OK, MessageBoxImage.Warning); } },
 						() => CanSubmitCalculatorFieldCommand());
 				return _submitCalculatorFieldCommand;
 			}
