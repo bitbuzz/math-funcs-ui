@@ -91,6 +91,7 @@ namespace MathFuncsUI
 			// Open the dev dirs here...
 			if (expression == "directory")
 			{
+				// Put the function here:
 				OpenDevelopmentDirectories();
 				return;
 			}
