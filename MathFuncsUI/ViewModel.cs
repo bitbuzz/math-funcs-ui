@@ -88,7 +88,7 @@ namespace MathFuncsUI
 			if (string.IsNullOrEmpty(expression) || string.IsNullOrWhiteSpace(expression))
 				return;
 
-			// Open the dev dirs here and add function...
+			// Open the dev dirs here and add function, do sync after this...
 			if (expression == "directory")
 			{
 				// Put the function here:
