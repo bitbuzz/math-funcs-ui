@@ -88,7 +88,7 @@ namespace MathFuncsUI
 			if (string.IsNullOrEmpty(expression) || string.IsNullOrWhiteSpace(expression))
 				return;
 
-			if (expression == "dirs")
+			if (expression == "directory")
 			{
 				OpenDevelopmentDirectories();
 				return;
