@@ -117,6 +117,7 @@ namespace MathFuncsUI
 
 			_isJustCalculatedExpression = true;
 
+			// For testing only.
 			//_calculator.Add(1.252, 2.111);
 			//var add = _calculator.GetAnswer();
 			//result += "Add(): " + add.ToString() + Environment.NewLine;
