@@ -115,6 +115,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="libs.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="MathFuncDll.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
