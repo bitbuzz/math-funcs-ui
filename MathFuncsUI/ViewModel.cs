@@ -135,6 +135,7 @@ namespace MathFuncsUI
 
 		private static List<string> GetLastLines(string str, int count)
 		{
+			// Get last lines.
 			List<string> lines = new List<string>();
 			Match match = Regex.Match(str, "^.*$", RegexOptions.Multiline | RegexOptions.RightToLeft);
 
