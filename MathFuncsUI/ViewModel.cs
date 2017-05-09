@@ -50,6 +50,7 @@ namespace MathFuncsUI
 			_calculator = _calculatorFactory.CreateCalculator();
 			_scientificCalculator = ((IScientificCalculator)_calculator);
 
+			// No longer need default calc value.
 			//CalculatorField = "";
 		}
 
@@ -116,6 +117,7 @@ namespace MathFuncsUI
 
 			_isJustCalculatedExpression = true;
 
+			// For testing only.
 			//_calculator.Add(1.252, 2.111);
 			//var add = _calculator.GetAnswer();
 			//result += "Add(): " + add.ToString() + Environment.NewLine;
@@ -133,6 +135,7 @@ namespace MathFuncsUI
 
 		private static List<string> GetLastLines(string str, int count)
 		{
+			// Get last lines.
 			List<string> lines = new List<string>();
 			Match match = Regex.Match(str, "^.*$", RegexOptions.Multiline | RegexOptions.RightToLeft);
 
