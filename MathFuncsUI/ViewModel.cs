@@ -50,6 +50,7 @@ namespace MathFuncsUI
 			_calculator = _calculatorFactory.CreateCalculator();
 			_scientificCalculator = ((IScientificCalculator)_calculator);
 
+			// TODO: Add 25.
 			CalculatorField = "12+23";
 		}
 
