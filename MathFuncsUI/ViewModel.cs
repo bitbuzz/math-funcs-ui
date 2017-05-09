@@ -50,6 +50,7 @@ namespace MathFuncsUI
 			_calculator = _calculatorFactory.CreateCalculator();
 			_scientificCalculator = ((IScientificCalculator)_calculator);
 
+			// No longer need default calc value.
 			//CalculatorField = "";
 		}
 
