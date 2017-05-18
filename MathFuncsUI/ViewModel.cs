@@ -49,9 +49,6 @@ namespace MathFuncsUI
 		{
 			_calculator = _calculatorFactory.CreateCalculator();
 			_scientificCalculator = ((IScientificCalculator)_calculator);
-
-			// No longer need default calc value.
-			//CalculatorField = "";
 		}
 
 		public string CalculatorField
@@ -89,7 +86,7 @@ namespace MathFuncsUI
 			if (string.IsNullOrEmpty(expression) || string.IsNullOrWhiteSpace(expression))
 				return;
 
-			if (expression == "directory")
+			if (expression == "open dirs")
 			{
 				OpenDevelopmentDirectories();
 				return;
@@ -106,7 +103,10 @@ namespace MathFuncsUI
 			{
 				currentExpression = expression;
 			}
-			
+
+			if (string.IsNullOrEmpty(currentExpression))
+				return;
+
 			DataTable dataTable = new DataTable();
 			var answer = Convert.ToDouble(dataTable.Compute(currentExpression, string.Empty).ToString());
 			_previousAnswer = answer;
@@ -115,22 +115,12 @@ namespace MathFuncsUI
 			CalculatorField = expression + Environment.NewLine + answer + Environment.NewLine;
 			_isScrollCalculatorFieldEnabled = false;
 
+			string inputString = "It was just a ";
+			_scientificCalculator.AppendString(ref inputString);
+			CalculatorField += inputString + Environment.NewLine;
+			//CalculatorField += RunInteropFunctions();
+
 			_isJustCalculatedExpression = true;
-
-			// For testing only.
-			//_calculator.Add(1.252, 2.111);
-			//var add = _calculator.GetAnswer();
-			//result += "Add(): " + add.ToString() + Environment.NewLine;
-
-			//var addOne = ((IScientificCalculator)_calculator).AddOne(1);
-			//result += "AddOne(): " + addOne.ToString() + Environment.NewLine;
-
-			//string tester = "Testing BSTR";
-			//_calculator.GetString(ref tester);
-			//result += tester + Environment.NewLine;
-
-			//string raiseToPower = _scientificCalculator.RaiseToPower (2.0, 10.0).ToString();
-			//result += "RaiseToPower(): " + (_calculator.GetAnswer().ToString()) + Environment.NewLine;
 		}
 
 		private static List<string> GetLastLines(string str, int count)
@@ -181,16 +171,16 @@ namespace MathFuncsUI
 			double val = -1;
 
 			val = MathFunctionsInterop.AddNumbers(number1, number2);
-			output = "Add " + number1.ToString() + " + " + number2.ToString() + " = " + val.ToString();
+			output = Environment.NewLine + "Add " + number1.ToString() + " + " + number2.ToString() + " = " + val.ToString() + Environment.NewLine;
 
 			val = MathFunctionsInterop.SubtractNumbers(number1, number2);
-			output += Environment.NewLine + "Subtract " + number1.ToString() + " - " + number2.ToString() + " = " + val.ToString();
+			output += "Subtract " + number1.ToString() + " - " + number2.ToString() + " = " + val.ToString() + Environment.NewLine;
 
 			val = MathFunctionsInterop.MultiplyNumbers(number1, number2);
-			output += Environment.NewLine + "Multiply " + number1.ToString() + " * " + number2.ToString() + " = " + val.ToString();
+			output += "Multiply " + number1.ToString() + " * " + number2.ToString() + " = " + val.ToString() + Environment.NewLine;
 
 			val = MathFunctionsInterop.DivideNumbers(number1, number2);
-			output += Environment.NewLine + "Divide " + number1.ToString() + " / " + number2.ToString() + " = " + val.ToString();
+			output += "Divide " + number1.ToString() + " / " + number2.ToString() + " = " + val.ToString();
 
 			return output;
 		}
