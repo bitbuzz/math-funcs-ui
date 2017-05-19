@@ -51,6 +51,7 @@ namespace MathFuncsUI
 			_scientificCalculator = ((IScientificCalculator)_calculator);
 		}
 
+		// Calculator Field Member
 		public string CalculatorField
 		{
 			get { return _calculatorField; }
