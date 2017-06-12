@@ -49,12 +49,6 @@ namespace MathFuncsUI
 		{
 			_calculator = _calculatorFactory.CreateCalculator();
 			_scientificCalculator = ((IScientificCalculator)_calculator);
-			// New Master 1
-		}
-
-		private void master()
-		{
-			// Master something
 		}
 
 		public string CalculatorField
