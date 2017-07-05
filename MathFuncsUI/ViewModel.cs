@@ -47,6 +47,7 @@ namespace MathFuncsUI
 
     public ViewModel()
     {
+      // Really important comments for issue 11.
       _calculator = _calculatorFactory.CreateCalculator();
       _scientificCalculator = ((IScientificCalculator)_calculator);
     }
