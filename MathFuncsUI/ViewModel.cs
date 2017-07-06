@@ -47,10 +47,9 @@ namespace MathFuncsUI
 
     public ViewModel()
     {
-      // Really important comments for issue 11.
-      // More comments.
       _calculator = _calculatorFactory.CreateCalculator();
       _scientificCalculator = ((IScientificCalculator)_calculator);
+      CalculatorField = "1. Type open dirs" + Environment.NewLine + "2. Then ='s to open dev directories.";
     }
 
     public string CalculatorField
@@ -117,7 +116,7 @@ namespace MathFuncsUI
       CalculatorField = expression + Environment.NewLine + answer + Environment.NewLine;
       _isScrollCalculatorFieldEnabled = false;
 
-      string inputString = "It was just a ";
+      string inputString = "Appending managed/unmanaged strings..." + Environment.NewLine + "It was just a ";
       _scientificCalculator.AppendString(ref inputString);
       CalculatorField += inputString + Environment.NewLine;
       //CalculatorField += RunInteropFunctions();
