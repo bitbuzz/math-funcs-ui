@@ -18,7 +18,6 @@ namespace MathFuncsUI
       {
         TextBoxCalculatorField.SelectionStart = TextBoxCalculatorField.Text.Length;
         TextBoxCalculatorField.CaretIndex = TextBoxCalculatorField.Text.Length;
-        // Important, always scrollToEnd().
         TextBoxCalculatorField.ScrollToEnd();
       }
     }
