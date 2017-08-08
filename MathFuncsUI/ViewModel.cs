@@ -148,10 +148,10 @@ namespace MathFuncsUI
 
     private void OpenDevelopmentDirectories()
     {
-      Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\Debug");
-      Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\MathFuncInterop");
-      Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\MathFuncInterop\bin\Debug");
       Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncsUI\MathFuncsUI");
+      Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\MathFuncInterop\bin\Debug");
+      Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\MathFuncInterop");
+      Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\Debug");
     }
 
     private void UpdateCalculatorField(string value)
