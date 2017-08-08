@@ -108,28 +108,28 @@ namespace MathFuncsUI
       if (string.IsNullOrEmpty(currentExpression))
         return;
 
-      string output = "";
-      _scientificCalculator.AppendStrings("Generate a", "random number", ref output);
+      DataTable dataTable = new DataTable();
+      var answer = Convert.ToDouble(dataTable.Compute(currentExpression, string.Empty).ToString());
+      _previousAnswer = answer;
 
       _isScrollCalculatorFieldEnabled = true;
-      CalculatorField = output + Environment.NewLine;
-      output = "Random number is: ";
-      _scientificCalculator.AppendInputToRandNumber(ref output);
-      CalculatorField += output + Environment.NewLine;
-      CalculatorField += _scientificCalculator.GetAnswer().ToString() + Environment.NewLine;
+      CalculatorField = expression + Environment.NewLine + answer + Environment.NewLine;
       _isScrollCalculatorFieldEnabled = false;
 
-      //DataTable dataTable = new DataTable();
-      //var answer = Convert.ToDouble(dataTable.Compute(currentExpression, string.Empty).ToString());
-      //_previousAnswer = answer;
-
-      //_isScrollCalculatorFieldEnabled = true;
-      //CalculatorField = expression + Environment.NewLine + answer + Environment.NewLine;
-      //_isScrollCalculatorFieldEnabled = false;
+      _isJustCalculatedExpression = true;
 
       //CalculatorField += RunInteropFunctions();
 
-      _isJustCalculatedExpression = true;
+      //string output = "";
+      //_scientificCalculator.AppendStrings("Generate a", "random number", ref output);
+
+      //_isScrollCalculatorFieldEnabled = true;
+      //CalculatorField = output + Environment.NewLine;
+      //output = "Random number is: ";
+      //_scientificCalculator.AppendInputToRandNumber(ref output);
+      //CalculatorField += output + Environment.NewLine;
+      //CalculatorField += _scientificCalculator.GetAnswer().ToString() + Environment.NewLine;
+      //_isScrollCalculatorFieldEnabled = false;
     }
 
     private static List<string> GetLastLines(string str, int count)
