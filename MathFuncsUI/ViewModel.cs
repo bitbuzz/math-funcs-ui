@@ -52,6 +52,8 @@ namespace MathFuncsUI
       CalculatorField = "1. Type open dirs" + Environment.NewLine + "2. Then ='s to open dev directories.";
     }
 
+    #region Properties
+
     public string CalculatorField
     {
       get { return _calculatorField; }
@@ -76,6 +78,10 @@ namespace MathFuncsUI
     {
       get { return _isScrollCalculatorFieldEnabled; }
     }
+
+    #endregion
+
+    #region Methods
 
     private void ClearCalculatorField()
     {
@@ -167,6 +173,8 @@ namespace MathFuncsUI
       }
       CalculatorField += value;
     }
+
+    #endregion
 
     #region Interop Functions
 
