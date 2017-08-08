@@ -108,17 +108,25 @@ namespace MathFuncsUI
       if (string.IsNullOrEmpty(currentExpression))
         return;
 
-      DataTable dataTable = new DataTable();
-      var answer = Convert.ToDouble(dataTable.Compute(currentExpression, string.Empty).ToString());
-      _previousAnswer = answer;
+      string output = "";
+      _scientificCalculator.AppendStrings("Generate a", "random number", ref output);
 
       _isScrollCalculatorFieldEnabled = true;
-      CalculatorField = expression + Environment.NewLine + answer + Environment.NewLine;
+      CalculatorField = output + Environment.NewLine;
+      output = "Random number is: ";
+      _scientificCalculator.AppendInputToRandNumber(ref output);
+      CalculatorField += output + Environment.NewLine;
+      CalculatorField += _scientificCalculator.GetAnswer().ToString() + Environment.NewLine;
       _isScrollCalculatorFieldEnabled = false;
 
-      string inputString = "Appending managed/unmanaged strings..." + Environment.NewLine + "It was just a ";
-      _scientificCalculator.AppendString(ref inputString);
-      CalculatorField += inputString + Environment.NewLine;
+      //DataTable dataTable = new DataTable();
+      //var answer = Convert.ToDouble(dataTable.Compute(currentExpression, string.Empty).ToString());
+      //_previousAnswer = answer;
+
+      //_isScrollCalculatorFieldEnabled = true;
+      //CalculatorField = expression + Environment.NewLine + answer + Environment.NewLine;
+      //_isScrollCalculatorFieldEnabled = false;
+
       //CalculatorField += RunInteropFunctions();
 
       _isJustCalculatedExpression = true;
