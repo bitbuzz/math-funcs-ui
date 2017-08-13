@@ -34,8 +34,8 @@ namespace MathFuncsUI
     public static readonly string Value7 = "7";
     public static readonly string Value8 = "8";
     public static readonly string Value9 = "9";
-    public static readonly string ValueX = "x";
-    public static readonly string ValueY = "y";
+    public static readonly string Sin = "sin";
+    public static readonly string Cos = "cos";
     public static readonly string ValueAdd = "+";
     public static readonly string ValueSubtract = "-";
     public static readonly string ValueMultiply = "*";
@@ -114,28 +114,60 @@ namespace MathFuncsUI
       if (string.IsNullOrEmpty(currentExpression))
         return;
 
-      DataTable dataTable = new DataTable();
-      var answer = Convert.ToDouble(dataTable.Compute(currentExpression, string.Empty).ToString());
-      _previousAnswer = answer;
+      // DO WORK...
 
-      _isScrollCalculatorFieldEnabled = true;
-      CalculatorField = expression + Environment.NewLine + answer + Environment.NewLine;
-      _isScrollCalculatorFieldEnabled = false;
-
-      _isJustCalculatedExpression = true;
-
-      //CalculatorField += RunInteropFunctions();
-
+      // Scientific
+      //
+      string sinPrefix = "sin";
+      string cosPrefix = "cos";
+      string tanPrefix = "tan";
+      if (currentExpression.StartsWith(sinPrefix))
+      {
+        string test = "n";
+        _scientificCalculator.AppendInputToRandNumber(ref test);
+        var tmp = currentExpression.Remove(0, sinPrefix.Length);
+        var dbl = Convert.ToDouble(tmp);
+       double answer = _scientificCalculator.Sin(dbl);
+        CalculatorField += answer.ToString() + Environment.NewLine;
+        return;
+      }
+      else if (currentExpression.StartsWith(cosPrefix))
+      {
+        var tmp = currentExpression.Remove(0, cosPrefix.Length);
+        var dbl = Convert.ToDouble(tmp);
+        CalculatorField += _scientificCalculator.Cos(dbl).ToString() + Environment.NewLine;
+        return;
+      }
+      else if (currentExpression.StartsWith(tanPrefix))
+      {
+        var tmp = currentExpression.Remove(0, tanPrefix.Length);
+        var dbl = Convert.ToDouble(tmp);
+        CalculatorField += _scientificCalculator.Tan(dbl).ToString() + Environment.NewLine;
+        return;
+      }
       //string output = "";
       //_scientificCalculator.AppendStrings("Generate a", "random number", ref output);
 
+      // Calculator
+      //
+      CalculatorField = _scientificCalculator.Add(1, 2).ToString() + Environment.NewLine;
+
+      // Interop:
+      //
+      //CalculatorField += RunInteropFunctions();
+
+      // Basic Calculations:
+      //
+      //DataTable dataTable = new DataTable();
+      //var answer = Convert.ToDouble(dataTable.Compute(currentExpression, string.Empty).ToString());
+      //_previousAnswer = answer;
       //_isScrollCalculatorFieldEnabled = true;
-      //CalculatorField = output + Environment.NewLine;
-      //output = "Random number is: ";
-      //_scientificCalculator.AppendInputToRandNumber(ref output);
-      //CalculatorField += output + Environment.NewLine;
-      //CalculatorField += _scientificCalculator.GetAnswer().ToString() + Environment.NewLine;
+      //CalculatorField = expression + Environment.NewLine + answer + Environment.NewLine;
       //_isScrollCalculatorFieldEnabled = false;
+
+      // END WORK...
+
+      _isJustCalculatedExpression = true;
     }
 
     private static List<string> GetLastLines(string str, int count)
@@ -158,6 +190,9 @@ namespace MathFuncsUI
       Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\MathFuncInterop\bin\Debug");
       Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\MathFuncInterop");
       Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\Debug");
+      Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncDll\MathFuncATL");
+      Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncATL\MathFuncATL");
+      Process.Start(@"D:\Git\managed-unmanaged-code\MathFuncATL\Debug");
     }
 
     private void UpdateCalculatorField(string value)

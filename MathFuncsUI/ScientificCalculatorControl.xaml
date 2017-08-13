@@ -30,8 +30,8 @@
       </local:CustomTextBox>
     </Border>
     <Button x:Name="ButtonAC" Grid.Column="0" Grid.Row="1" Command="{Binding ClearCalculatorFieldCommand}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="AC"></Button>
-    <Button x:Name="ButtonX" Grid.Column="1" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueX}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="x"></Button>
-    <Button x:Name="ButtonY" Grid.Column="2" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueY}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="y"></Button>
+    <Button x:Name="ButtonX" Grid.Column="1" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Sin}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="sin"></Button>
+    <Button x:Name="ButtonY" Grid.Column="2" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Cos}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="cos"></Button>
     <Button x:Name="OpenParenthesisBtn" Grid.Column="3" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueOpenParenthesis}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="("></Button>
     <Button x:Name="ClosedParenthesisBtn" Grid.Column="4" Grid.Row="1" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.ValueClosedParenthesis}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content=")"></Button>
     <Button x:Name="ButtonOne" Grid.Column="0" Grid.Row="2" Command="{Binding UpdateCalculatorFieldCommand}" CommandParameter="{x:Static local:ViewModel.Value1}" FontSize="18" HorizontalAlignment="Center" Margin="2" Height="50" Width="50" Content="1"></Button>

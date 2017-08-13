@@ -117,12 +117,17 @@
     <Resource Include="libs.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MathFuncDll.dll">
+    <None Include="MathFuncDll.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MathFuncInterop.dll">
+    </None>
+    <None Include="MathFuncInterop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MathFuncATL.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
