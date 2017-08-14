@@ -116,41 +116,51 @@ namespace MathFuncsUI
 
       // DO WORK...
 
+      CalculatorField = _scientificCalculator.Subtract(1, 2).ToString() + Environment.NewLine;
+      CalculatorField += _scientificCalculator.Add(1, 2).ToString() + Environment.NewLine;
+      string test = "test_";
+      _scientificCalculator.AppendInputToRandNumber(ref test);
+      CalculatorField += test + Environment.NewLine;
+      double answer = _scientificCalculator.RaiseToPower(5, 3);
+      CalculatorField += answer.ToString() + Environment.NewLine;
+      answer = _scientificCalculator.Sin(5.0);
+      CalculatorField += answer.ToString() + Environment.NewLine;
+
       // Scientific
       //
-      string sinPrefix = "sin";
-      string cosPrefix = "cos";
-      string tanPrefix = "tan";
-      if (currentExpression.StartsWith(sinPrefix))
-      {
-        string test = "n";
-        _scientificCalculator.AppendInputToRandNumber(ref test);
-        var tmp = currentExpression.Remove(0, sinPrefix.Length);
-        var dbl = Convert.ToDouble(tmp);
-       double answer = _scientificCalculator.Sin(dbl);
-        CalculatorField += answer.ToString() + Environment.NewLine;
-        return;
-      }
-      else if (currentExpression.StartsWith(cosPrefix))
-      {
-        var tmp = currentExpression.Remove(0, cosPrefix.Length);
-        var dbl = Convert.ToDouble(tmp);
-        CalculatorField += _scientificCalculator.Cos(dbl).ToString() + Environment.NewLine;
-        return;
-      }
-      else if (currentExpression.StartsWith(tanPrefix))
-      {
-        var tmp = currentExpression.Remove(0, tanPrefix.Length);
-        var dbl = Convert.ToDouble(tmp);
-        CalculatorField += _scientificCalculator.Tan(dbl).ToString() + Environment.NewLine;
-        return;
-      }
+      //string sinPrefix = "sin";
+      //string cosPrefix = "cos";
+      //string tanPrefix = "tan";
+      //if (currentExpression.StartsWith(sinPrefix))
+      //{
+      //  string test = "n";
+      //  _scientificCalculator.AppendInputToRandNumber(ref test);
+      //  var tmp = currentExpression.Remove(0, sinPrefix.Length);
+      //  var dbl = Convert.ToDouble(tmp);
+      // double answer = _scientificCalculator.Sin(dbl);
+      //  CalculatorField += answer.ToString() + Environment.NewLine;
+      //  return;
+      //}
+      //else if (currentExpression.StartsWith(cosPrefix))
+      //{
+      //  var tmp = currentExpression.Remove(0, cosPrefix.Length);
+      //  var dbl = Convert.ToDouble(tmp);
+      //  CalculatorField += _scientificCalculator.Cos(dbl).ToString() + Environment.NewLine;
+      //  return;
+      //}
+      //else if (currentExpression.StartsWith(tanPrefix))
+      //{
+      //  var tmp = currentExpression.Remove(0, tanPrefix.Length);
+      //  var dbl = Convert.ToDouble(tmp);
+      //  CalculatorField += _scientificCalculator.Tan(dbl).ToString() + Environment.NewLine;
+      //  return;
+      //}
       //string output = "";
       //_scientificCalculator.AppendStrings("Generate a", "random number", ref output);
 
       // Calculator
       //
-      CalculatorField = _scientificCalculator.Add(1, 2).ToString() + Environment.NewLine;
+      //CalculatorField = _scientificCalculator.Add(1, 2).ToString() + Environment.NewLine;
 
       // Interop:
       //
